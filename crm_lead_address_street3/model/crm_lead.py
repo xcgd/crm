@@ -10,15 +10,15 @@ class CrmLead(models.Model):
     _inherit = "crm.lead"
 
     @api.multi
-    def _lead_create_contact(self, name, is_company, parent_id=False):
+    def _create_lead_partner_data(self, name, is_company, parent_id=False):
 
-        partner = super(CrmLead, self)._lead_create_contact(
+        ret = super(CrmLead, self)._create_lead_partner_data(
             name, is_company, parent_id=parent_id,
         )
 
-        partner.write({'street3': self.street3})
+        ret.update({'street3': self.street3})
 
-        return partner
+        return ret
 
     street3 = fields.Char('Street 3')
 
